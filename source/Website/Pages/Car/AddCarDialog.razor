@@ -1,0 +1,25 @@
+﻿@using WebAPI.Models.Car
+
+
+<MudDialog>
+    <DialogContent>
+        <MudText Class="pd-2">Mærke: @CarDto.Brand</MudText>
+            <MudText Class="pd-2">Model: @CarDto.Model</MudText>
+            <MudText Class="pd-2">Variant: @CarDto.Variant</MudText>
+            <MudText Class="pd-2">Model år: @CarDto.ModelYear</MudText>
+            <MudText Class="pd-2">Brændstof: @CarDto.FuelType</MudText>
+            <MudText Class="pd-2">Nummerplade: @CarDto.Registration</MudText>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Annuller</MudButton>
+            <MudButton Color="Color.Primary" OnClick="Submit">Tilføj</MudButton>
+        </DialogActions>
+    </MudDialog>
+
+    @code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public CarDto CarDto { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

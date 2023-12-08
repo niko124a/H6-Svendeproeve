@@ -1,0 +1,48 @@
+﻿@page "/createreservation"
+@attribute [Authorize]
+
+<PageTitle>Create Reservation</PageTitle>
+
+
+<MudGrid>
+    <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center">
+        <MudText Typo="Typo.h3">Opret @ReservationService.ReservationDto.ReservationType.Name Reservation</MudText>
+    </MudItem>
+
+    @if (reservationTypeSelected)
+    {
+        <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center">
+            <MudCard Style="width:100%">
+                <MudForm Model="@ReservationService.ReservationDto" @ref="@form" @bind-IsValid="isFormValid" @bind-Errors="formErrors">
+                    <MudCardContent>
+                        <MudDatePicker Label="Dato" Date="date" TextChanged="DateChanged" DisableToolbar="true" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" Placeholder="dd-MM-yyyy" PickerVariant="PickerVariant.Inline" Culture="@System.Globalization.CultureInfo.CreateSpecificCulture("da-DK")" Required="true" />
+                        <MudItem xs="12" md="12" lg="12" Class="d-flex flex-wrap pt-6">
+                            @foreach (var item in availableTimes)
+                            {
+                                <MudItem xs="2" md="2" lg="2">
+                                    <MudButton OnClick="() => SelectTimeClickEvent(item)">@item</MudButton> @* TODO: Change the color on this button when its clicked. *@
+                                </MudItem>
+                            }
+                        </MudItem>
+                        <MudTextField @bind-Value="ReservationService.ReservationDto.Note" For="@(() => ReservationService.ReservationDto.Note)" Immediate="true" Label="Note" />
+
+                        <MudSelect @bind-Value="selectedCarRegistration" Label="Vælg bil" Required="true">
+                            @foreach (var car in cars)
+                            {
+                                <MudSelectItem Value="@car.Registration"></MudSelectItem>
+                            }
+                        </MudSelect>
+                        <MudButton Color="Color.Info" Variant="Variant.Filled" Disabled="@(!isFormValid)" OnClick="@(async () => await FormSubmit())">Reserver</MudButton>
+                    </MudCardContent>
+                </MudForm>
+            </MudCard>
+        </MudItem>
+    }
+    else
+    {
+        <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center gap-2">
+            <MudText Typo="Typo.body1">Du kan ikke oprette en reservation uden at vælge en service/reperation</MudText>
+            <MudLink Href="/services">Klik her for at vælge en service/reperation</MudLink>
+        </MudItem>
+    }
+</MudGrid>

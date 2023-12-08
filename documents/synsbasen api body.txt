@@ -1,0 +1,75 @@
+
+https://api.synsbasen.dk/v1/docs
+
+
+{
+    "data": {
+        "id": 9000000000970539,
+        "registration": "AS67902",									Added
+        "vin": "MMCXNA03AFH012439",									Added
+        "first_registration_date": "2015-01-02",
+        "status": "Registreret",									Added
+        "status_updated_at": "2015-01-02",
+        "registration_status": "Registreret",						Added
+        "registration_status_updated_at": "2019-02-28",
+        "kind": "Personbil",										Added
+        "usage": "Privat personkørsel",								Added
+        "category": "M1",											Added
+        "model_year": 2015,											Added
+        "fuel_type": "Benzin",										Added
+        "mileage": 155000,
+        "mileage_annual_average": 19283,
+        "brand": "MITSUBISHI",										Added
+        "brand_id": "10177",
+        "model": "SPACE STAR",										Added
+        "model_id": "10177024",
+        "variant": "1.2 5D",										Added
+        "variant_id": "7000016692",
+        "version": "A00",
+        "version_id": "69999999990021074",
+        "body_type": "Hatchback",
+        "eu_version": "AABBA5A5BAAA",
+        "eu_variant": "A0411",
+        "ec_type_approval": "e1*2007/46*0951*03",
+        "last_inspection_date": "2023-01-16",						Added
+        "last_inspection_result": "Godkendt",						Added
+        "last_inspection_kind": "PeriodiskSyn",						Added
+        "ncap_five": false,
+        "leasing_period_start": null,
+        "leasing_period_end": null,
+        "extra_equipment": "Metallak",								Added
+        "inspections": [											Added
+            {
+                "id": 30785682,
+                "vehicle_id": 9000000000970539,
+                "registration": "AS67902",
+                "vin": "MMCXNA03AFH012439",
+                "date": "2023-01-16",
+                "result": "Godkendt",
+                "mileage": 155000,
+                "pdf": "https://findsynsrapport.fstyr.dk/_layouts/Web.Inspections/SaveReport.aspx?Inspection=30785682&Vin=MMCXNA03AFH012439"
+            },
+            {
+                "id": 26939482,
+                "vehicle_id": 9000000000970539,
+                "registration": "AS67902",
+                "vin": "MMCXNA03AFH012439",
+                "date": "2021-01-07",
+                "result": "Godkendt",
+                "mileage": 129000,
+                "pdf": "https://findsynsrapport.fstyr.dk/_layouts/Web.Inspections/SaveReport.aspx?Inspection=26939482&Vin=MMCXNA03AFH012439"
+            },
+            {
+                "id": 23325334,
+                "vehicle_id": 9000000000970539,
+                "registration": "AS67902",
+                "vin": "MMCXNA03AFH012439",
+                "date": "2019-01-07",
+                "result": "Godkendt",
+                "mileage": 97000,
+                "pdf": "https://findsynsrapport.fstyr.dk/_layouts/Web.Inspections/SaveReport.aspx?Inspection=23325334&Vin=MMCXNA03AFH012439"
+            }
+        ]
+    },
+    "cost": 0
+}

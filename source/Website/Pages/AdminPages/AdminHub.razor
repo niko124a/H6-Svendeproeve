@@ -1,0 +1,22 @@
+﻿@page "/adminhub"
+@attribute [Authorize(Roles = "Admin,Bogholder,Mekaniker")]
+
+<PageTitle>Admin Hub</PageTitle>
+
+
+<MudGrid>
+    <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center flex-wrap gap-2">
+        @if (userRole == Common.Enums.Entitity.UserRole.Admin.ToString())
+        {
+            <MudItem xs="12" md="3" lg="3">
+                <MudButton Variant="Variant.Filled" Style="height:80px; width:100%;" Href="/usersadmin">Brugere</MudButton>
+            </MudItem>
+            <MudItem xs="12" md="3" lg="3">
+                <MudButton Variant="Variant.Filled" Style="height:80px; width:100%;">Biler</MudButton>
+            </MudItem>
+        }
+        <MudItem xs="12" md="3" lg="3">
+            <MudButton Variant="Variant.Filled" Style="height:80px; width:100%;">Reservationer</MudButton>
+        </MudItem>
+    </MudItem>
+</MudGrid>

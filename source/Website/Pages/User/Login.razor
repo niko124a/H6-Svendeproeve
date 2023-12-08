@@ -1,0 +1,25 @@
+﻿@page "/login"
+
+<PageTitle>Login</PageTitle>
+
+<MudGrid>
+    <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center">
+        <MudCard Style="width:100%" Outlined="true">
+            <MudCardHeader>
+                <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center">
+                    <MudText Typo="Typo.h3">Login</MudText>
+                </MudItem>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField @bind-Value="username" Label="Brugernavn" Variant="Variant.Text" Required="true"></MudTextField>
+                <MudTextField @bind-Value="password" Label="Adgangskode" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="() => ShowPassword()" Required="true"></MudTextField>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="async () => await LoginSubmit()">Login</MudButton>
+                <MudSpacer/>
+                <MudText Typo="Typo.body1">Har du ikke en bruger endu?</MudText>
+                <MudLink Href="/register">Opret bruger her</MudLink>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>

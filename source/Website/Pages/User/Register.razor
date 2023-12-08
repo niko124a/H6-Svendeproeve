@@ -1,0 +1,28 @@
+﻿@page "/register"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Register</PageTitle>
+
+<MudGrid>
+    <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center">
+        <MudCard Style="width:100%" Outlined="true">
+            <MudCardHeader>
+                <MudItem xs="12" md="12" lg="12" Class="d-flex justify-center">
+                    <MudText Typo="Typo.h3">Opret bruger</MudText>
+                </MudItem>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField @bind-Value="createUserDto.Username" Label="Brugernavn" Variant="Variant.Text" Required="true" Immediate="true"></MudTextField>
+                <MudTextField @bind-Value="createUserDto.Password" Label="Adgangskode" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="() => ShowPassword()" Required="true" Immediate="true"></MudTextField>
+                <MudTextField @bind-Value="secondPassword" Label="Adgangskode" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="() => ShowPassword()" Required="true" Immediate="true" Validation="@(new Func<string, string>(MatchPassword))"></MudTextField>
+                <MudTextField @bind-Value="createUserDto.FirstName" Label="Fornavn" Variant="Variant.Text" Required="true" Immediate="true"></MudTextField>
+                <MudTextField @bind-Value="createUserDto.LastName" Label="Efternavn" Variant="Variant.Text" Required="true" Immediate="true"></MudTextField>
+                <MudTextField @bind-Value="createUserDto.Email" Label="Email" Variant="Variant.Text" InputType="InputType.Email" Required="true" Immediate="true" Validation="@(new EmailAddressAttribute() {ErrorMessage = "Ugyldig email."})"></MudTextField>
+                <MudTextField @bind-Value="createUserDto.PhoneNumber" Label="Telefon nr." Variant="Variant.Text" InputType="InputType.Telephone" Required="true" Immediate="true"></MudTextField>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="async () => await RegisterSubmit()">Opret</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>

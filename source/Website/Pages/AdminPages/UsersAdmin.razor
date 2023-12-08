@@ -1,0 +1,81 @@
+﻿@page "/usersadmin"
+@using System.ComponentModel.DataAnnotations
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>Administrer Brugere</PageTitle>
+
+<MudGrid>
+    <MudItem xs="12" md="6" lg="6">
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h4">Brugere</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudGrid>
+                    <MudItem xs="12" md="12" lg="12">
+                        @if (users.Count() > 0)
+                        {
+                            <MudTable Items="users" Hover="true" Breakpoint="Breakpoint.Xs">
+                                <HeaderContent>
+                                    <MudTh>Fornavn</MudTh>
+                                    <MudTh>Efternavn</MudTh>
+                                    <MudTh>Email</MudTh>
+                                    <MudTh>Tlf</MudTh>
+                                    <MudTh>Rolle</MudTh>
+                                    <MudTh></MudTh>
+                                </HeaderContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="Fornavn">@context.FirstName</MudTd>
+                                    <MudTd DataLabel="Efternavn">@context.LastName</MudTd>
+                                    <MudTd DataLabel="Email">@context.Email</MudTd>
+                                    <MudTd DataLabel="Tlf">@context.PhoneNumber</MudTd>
+                                    <MudTd DataLabel="Rolle">@context.Role.Name</MudTd>
+                                    <MudTd>
+                                        <MudFab Color="Color.Error" Label="Slet" OnClick="async () => await DeleteUserAsync(context)" />
+                                    </MudTd>
+                                </RowTemplate>
+                            </MudTable>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.body1">Ingen brugere fundet.</MudText>
+                        }
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="12" md="6" lg="6">
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h4">Opret bruger</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudGrid>
+                    <MudItem xs="12" md="12" lg="12">
+                        <MudTextField @bind-Value="createUserDto.Username" Label="Brugernavn" Variant="Variant.Text" Required="true" Immediate="true"></MudTextField>
+                        <MudTextField @bind-Value="createUserDto.Password" Label="Adgangskode" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="() => ShowPassword()" Required="true" Immediate="true"></MudTextField>
+                        <MudTextField @bind-Value="confirmPassword" Label="Adgangskode" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="() => ShowPassword()" Required="true" Immediate="true" Validation="@(new Func<string, string>(MatchPassword))"></MudTextField>
+                        <MudTextField @bind-Value="createUserDto.FirstName" Label="Fornavn" Variant="Variant.Text" Required="true" Immediate="true"></MudTextField>
+                        <MudTextField @bind-Value="createUserDto.LastName" Label="Efternavn" Variant="Variant.Text" Required="true" Immediate="true"></MudTextField>
+                        <MudTextField @bind-Value="createUserDto.Email" Label="Email" Variant="Variant.Text" InputType="InputType.Email" Required="true" Immediate="true" Validation="@(new EmailAddressAttribute() {ErrorMessage = "Ugyldig email."})"></MudTextField>
+                        <MudTextField @bind-Value="createUserDto.PhoneNumber" Label="Telefon nr." Variant="Variant.Text" InputType="InputType.Telephone" Required="true" Immediate="true"></MudTextField>
+                        <MudSelect @bind-Value="createUserDto.RoleName" Label="Vælg Rolle" Required="true">
+                            <MudSelectItem Value="Common.Enums.Entitity.UserRole.Admin.ToString()"></MudSelectItem>
+                            <MudSelectItem Value="Common.Enums.Entitity.UserRole.Bogholder.ToString()"></MudSelectItem>
+                            <MudSelectItem Value="Common.Enums.Entitity.UserRole.Mekaniker.ToString()"></MudSelectItem>
+                            <MudSelectItem Value="Common.Enums.Entitity.UserRole.Kunde.ToString()"></MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="async () => await CreateUserAsync()">Opret</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>

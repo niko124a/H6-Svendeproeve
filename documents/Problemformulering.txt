@@ -1,0 +1,45 @@
+
+Case: 
+Et autoværksted ønsker et system til håndtering af service- og reparationstids reservationer. 
+Via en hjemmeside skal autoværkstedet kunne oprette og få en oversigt over reservationer. 
+Kunden skal kunne foretage reservationer af service/reparation via en hjemmeside.
+
+
+systemet skal have de følgene funktioner:
+
+1. Kunden skal kunne oprette og opdatere sin egen bruger via en hjemmeside.
+  a. systemet skal tildele brugeren rollen "Kunde".
+  
+
+2. System administratoren skal kunne oprette brugere til ansatte.
+  
+
+3. Brugere skal kunne oprette og opdatere service- og reparationstids reservationer via en hjemmeside.
+  a. "Kunde" brugere skal kunne administrere sine egne reservationer.
+    a1. "Kunde" brugere skal kunne vælge om der ønskes en lånebil.
+  b. "Admin" brugere skal kunne administrere alle reservationer.
+  c. "Mekaniker" brugere skal kunne se aktive reservationer og sætte dem til "Færdig", når reperation/service er færdig.
+  d. "Bogholder" brugere skal kunne administrere alle reservationer og manuelt justere ledige reperations tider
+    d1. "Bogholder" brugere skal kunne tildele en mekaniker til en reservation
+
+
+4. Systemet skal justere tilgængelige reservationstider ud fra en liste af aktiviteter og tider.
+  a. systemet skal ikke kunne overskrive manuelle ændringer til tilgængelige reservationstider.
+  
+  
+4. Når der oprettes en reservation, skal systemet automatisk tilpasse tilgængelige reservationstider baseret på en liste over aktiviteter og deres tilhørende tider. 
+  a. systemet må ikke overskrive manuelle ændringer, der er foretaget til tilgængelige reservationstider.
+
+
+5. brugeren skal kunne sikkert logge ind og ud.
+  a. Systemet skal hash brugerens adgangskode.
+  
+  
+6. Brugeren skal via en hjemmeside kunne finde deres bil ud fra et registrerings nummer.
+  a. systemet skal kunne finde et kørertøj i danmark motor register ud fra et registrerings nummer og tildele kørertøjet til bruger. 
+  
+
+7. Hjemmesiden skal vise praktiske informationer omkring autoværkstedet.
+  a. brugere skal kunne se kontakt oplysninger.
+  b. brugere skal kunne se åbningstider.
+  c. brugere skal kunne se billeder af de ansatte og deres stilling.

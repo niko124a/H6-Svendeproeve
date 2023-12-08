@@ -1,0 +1,11 @@
+
+
+Kravspecifikation
+
+- Integration med externe systemer
+  - Synsbasen API
+    Integration med Synsbasen API, hvor jeg modtager offentligt tilgængelige data fra DMR(Danmarks motor register) omkring et køretøj ud fra dets registreringsnummer.
+	
+
+- Sikkerhed
+  - 

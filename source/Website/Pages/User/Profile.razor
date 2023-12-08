@@ -1,0 +1,142 @@
+﻿@page "/profile"
+@attribute [Authorize]
+
+<PageTitle>Profil</PageTitle>
+
+
+    <MudGrid>
+        <MudItem xs="12" md="4" lg="4" Class="d-flex justify-center">
+            <MudCard Outlined="true" Style="width:100%">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h4">Personlig Info</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudItem>
+                        <MudText>Fornavn</MudText>
+                        <MudTextField @bind-Value="updateUserDto.FirstName" Variant="Variant.Text" Disabled="cannotEditInfo" Required="true" />
+                    </MudItem>
+                    <MudItem>
+                        <MudText>Efternavn</MudText>
+                    <MudTextField @bind-Value="updateUserDto.LastName" Variant="Variant.Text" Disabled="cannotEditInfo" Required="true" />
+                    </MudItem>
+                    <MudItem>
+                        <MudText>Email</MudText>
+                    <MudTextField @bind-Value="updateUserDto.Email" Variant="Variant.Text" Disabled="cannotEditInfo" Required="true" />
+                    </MudItem>
+                    <MudItem>
+                        <MudText>Tlf.</MudText>
+                    <MudTextField @bind-Value="updateUserDto.PhoneNumber" Variant="Variant.Text" Disabled="cannotEditInfo" Required="true" />
+                    </MudItem>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudItem Class="d-flex justify-center gap-2">
+                        @if (cannotEditInfo)
+                        {
+                            <MudText>Er dine oplysninger ikke korrekt?</MudText>
+                            <MudSpacer />
+                            <MudButton Variant="Variant.Filled" Color="Color.Info" EndIcon="@Icons.Outlined.Create" OnClick="() => {cannotEditInfo = false;}">Ret</MudButton>
+                        }
+                        else
+                        {
+                            <MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="async () => await UpdateInfoSubmit()">Opdater</MudButton>
+                            <MudSpacer />
+                            <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="() => {cannotEditInfo = true;}">Annuller</MudButton>
+                        }
+                    </MudItem>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="4" lg="4" Class="d-flex justify-center">
+            <MudCard Outlined="true" Style="width:100%">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h4">Biler</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem xs="12" md="12" lg="12">
+                            <MudItem>
+                                <MudText>Find din bil ved at indtaste din nummerplade her.</MudText>
+                            </MudItem>
+                            <MudItem>
+                                <MudForm @bind-IsValid="synsbasenApiIsValid">
+                                    <MudTextField @bind-Value="registrationDmr" Immediate="true" Variant="Variant.Text" Label="Nummerplade" Required="true" />
+                                    <MudSwitch @bind-Checked="haveCustomRegistration" Color="Color.Tertiary">Speciel Nummerplade</MudSwitch>
+                                    <MudButton Variant="Variant.Filled" Color="Color.Info" Disabled="@(!synsbasenApiIsValid)" OnClick="async () => await FindCarInDmr()">Find bil</MudButton>
+                                </MudForm>
+                            </MudItem>
+                        </MudItem>
+                        <MudItem xs="12" md="12" lg="12">
+                            @if (userCars.Count() > 0)
+                            {
+                                <MudTable Items="userCars" Hover="true" Breakpoint="Breakpoint.Xs">
+                                    <HeaderContent>
+                                        <MudTh>Nummerplade</MudTh>
+                                        <MudTh>Mærke</MudTh>
+                                        <MudTh>Model</MudTh>
+                                        <MudTh>Variant</MudTh>
+                                        <MudTh>Model år</MudTh>
+                                        <MudTh></MudTh>
+                                    </HeaderContent>
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Nummerplade">@context.Registration</MudTd>
+                                            <MudTd DataLabel="Mærke">@context.Brand</MudTd>
+                                            <MudTd DataLabel="Model">@context.Model</MudTd>
+                                            <MudTd DataLabel="Variant">@context.Variant</MudTd>
+                                            <MudTd DataLabel="Model år">@context.ModelYear</MudTd>
+                                            <MudTd>
+                                                <MudFab Color="Color.Error" Label="Slet" OnClick="async () => await RemoveCarAsync(context)" />
+                                            </MudTd>
+                                        </RowTemplate>
+                                    </MudTable>
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.body1">Du har ikke tilføjet nogle biler.</MudText>
+                            }
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="4" lg="4" Class="d-flex justify-center">
+            <MudCard Outlined="true" Style="width:100%">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h4">Aktive reservationer</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    @if (userActiveReservations.Count() > 0)  
+                    {
+                        <MudTable Items="userActiveReservations" Hover="true" Breakpoint="Breakpoint.Xs">
+                            <HeaderContent>
+                                <MudTh>Nummerplade</MudTh>
+                                <MudTh>Service</MudTh>
+                                <MudTh>Dato</MudTh>
+                                <MudTh></MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Nummerplade">@context.Car.Registration</MudTd>
+                                <MudTd DataLabel="Service">@context.Type.Name</MudTd>
+                                <MudTd DataLabel="Dato">@context.StartDate.ToLocalTime()</MudTd>
+                                <MudTd>
+                                    <MudFab Color="Color.Error" Label="Annuller" OnClick="async () => await CancelReservationAsync(context)" />
+                                </MudTd>
+                            </RowTemplate>
+                        </MudTable>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body1">Du har ikke nogle aktive reservationer.</MudText>
+                    }
+                </MudCardContent>
+                <MudCardActions>
+
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>

@@ -1,0 +1,10 @@
+
+
+Teknologier:
+
+- Blazor (Website)
+- ASP.NET Core (Web API)
+- MSSQL (Database)
+  - EntityFramework
+- Docker (Containerization)
+- Kubernetes (Orchestrate containers)
